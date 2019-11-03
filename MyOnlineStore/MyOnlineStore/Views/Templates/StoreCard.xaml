@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MyOnlineStore.Views.Templates.StoreCard"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:abstraction="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <pcv:PancakeView
+            Margin="0,0,0,0"
+            BackgroundColor="{StaticResource WhiteBlue}"
+            BorderColor="Red"
+            CornerRadius="5"
+            HasShadow="False"
+            HeightRequest="300"
+            WidthRequest="300">
+
+            <AbsoluteLayout>
+                <abstraction:CircleImage
+                    Margin="5,5,0,0"
+                    AbsoluteLayout.LayoutBounds="0,0,90,90"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    Aspect="Fill"
+                    HeightRequest="90"
+                    HorizontalOptions="CenterAndExpand"
+                    Source="Red_Table_Main_Logo.jpg"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="90" />
+
+                <CheckBox
+                    AbsoluteLayout.LayoutBounds="1,0,30,30"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    IsChecked="{Binding IsFavorite}"
+                    Visual="Material"
+                    Color="{StaticResource FavoriteGold}" />
+
+
+                <Label
+                    AbsoluteLayout.LayoutBounds="0.95,0.15,200,90"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    FontAttributes="Italic"
+                    FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding StoreName}"
+                    TextColor="Black"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    AbsoluteLayout.LayoutBounds="0,95,1,0.08"
+                    AbsoluteLayout.LayoutFlags="SizeProportional"
+                    FontAttributes="Italic"
+                    Text="Description:"
+                    TextColor="Black" />
+                <Label
+                    Margin="5,0,0,0"
+                    AbsoluteLayout.LayoutBounds="0,120,1,0.45"
+                    AbsoluteLayout.LayoutFlags="SizeProportional"
+                    Text="{Binding Description}"
+                    TextColor="Black" />
+
+                <RelativeLayout AbsoluteLayout.LayoutBounds="1,1,0.5,0.1" AbsoluteLayout.LayoutFlags="All">
+                    <Label
+                        x:Name="CatLabel"
+                        Margin="5,0,0,0"
+                        FontAttributes="Italic"
+                        HorizontalTextAlignment="Start"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                               Property=Height,
+                                                                               Factor=1}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                              Property=Width,
+                                                                              Factor=0.5}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Height,
+                                                                          Factor=0}"
+                        Text="Category: "
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+                    <Label
+                        HorizontalTextAlignment="End"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                               Property=Height,
+                                                                               Factor=1}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                              Property=Width,
+                                                                              Factor=0.5}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                          ElementName=CatLabel,
+                                                                          Property=Width,
+                                                                          Factor=1}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Height,
+                                                                          Factor=0}"
+                        Text="{Binding StoreType}"
+                        TextColor="Black"
+                        VerticalTextAlignment="Center" />
+                </RelativeLayout>
+            </AbsoluteLayout>
+        </pcv:PancakeView>
+    </ContentView.Content>
+</ContentView>

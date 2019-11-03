@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyOnlineStore.Views.Home.ExploreStores"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:templates="clr-namespace:MyOnlineStore.Views.Templates"
+    BackgroundColor="{StaticResource PrimaryMint}"
+    Visual="Material"
+    mc:Ignorable="d">
+    <Shell.TitleView>
+        <pcv:PancakeView
+            Margin="5"
+            BorderColor="Gray"
+            CornerRadius="5">
+            <Label
+                FontSize="{OnPlatform Android=20,
+                                      iOS=20}"
+                HorizontalTextAlignment="Start"
+                Text="Find Store"
+                TextColor="{StaticResource WhiteBlue}"
+                VerticalTextAlignment="Center" />
+        </pcv:PancakeView>
+    </Shell.TitleView>
+    <ContentPage.Content>
+        <AbsoluteLayout Padding="0">
+            <pcv:PancakeView
+                Margin="{OnPlatform Android='5,5,5,0',
+                                    iOS='5'}"
+                AbsoluteLayout.LayoutBounds="0,0,1,0.1"
+                AbsoluteLayout.LayoutFlags="All"
+                CornerRadius="10">
+                <SearchBar
+                    x:Name="Filter"
+                    BackgroundColor="{StaticResource WhiteBlue}"
+                    MaxLength="20"
+                    Placeholder="Search">
+                    <SearchBar.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            Command="{Binding SearchCommand}"
+                            CommandParameter="{Binding Source={x:Reference Filter}, Path=Text}"
+                            EventName="TextChanged" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+            </pcv:PancakeView>
+            <CollectionView
+                Margin="5"
+                AbsoluteLayout.LayoutBounds="0,45,1,1"
+                AbsoluteLayout.LayoutFlags="SizeProportional"
+                ItemsSource="{Binding StoreList}"
+                VerticalScrollBarVisibility="Always">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        ItemSpacing="5"
+                        Orientation="Vertical"
+                        SnapPointsAlignment="Center"
+                        SnapPointsType="Mandatory" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:StoreCard Padding="5,5,5,0" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

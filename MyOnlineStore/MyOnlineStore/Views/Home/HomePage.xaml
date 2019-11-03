@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyOnlineStore.Views.Home.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:rainbow="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
+    xmlns:template="clr-namespace:MyOnlineStore.Views.Templates"
+    rainbow:DebugRainbow.IsDebug="False"
+    BackgroundColor="{StaticResource PrimaryMint}"
+    Routing.Route="Home"
+    Visual="Material"
+    mc:Ignorable="d">
+
+    <Shell.TitleView>
+        <Label
+            FontSize="22"
+            HorizontalOptions="CenterAndExpand"
+            HorizontalTextAlignment="Start"
+            Text="Title"
+            TextColor="{StaticResource PrimaryMint}"
+            VerticalTextAlignment="Center" />
+    </Shell.TitleView>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout
+                x:Name="MainStack"
+                Padding="10,10,0,0"
+                Spacing="15">
+                <template:StoresCollectionView
+                    SectionTitle="Favorite Stores"
+                    StoreList="{Binding FavoriteStoreList, Mode=TwoWay}"
+                    ToggleFavoriteCommand="{Binding ToggleCommand}" />
+                <template:StoresCollectionView StoreList="{Binding FavoriteStoreList, Mode=TwoWay}" ToggleFavoriteCommand="{Binding ToggleCommand}" />
+                <template:StoresCollectionView StoreList="{Binding FavoriteStoreList, Mode=TwoWay}" ToggleFavoriteCommand="{Binding ToggleCommand}" />
+                <template:StoresCollectionView
+                    NavigateToStoreDetailCommand="{Binding NavigateToStoreDetailCommand}"
+                    StoreList="{Binding FavoriteStoreList, Mode=TwoWay}"
+                    ToggleFavoriteCommand="{Binding ToggleCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

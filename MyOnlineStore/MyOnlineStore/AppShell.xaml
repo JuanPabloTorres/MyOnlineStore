@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyOnlineStore.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:adminviews="clr-namespace:MyOnlineStore.Views.AdminScenarios"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:controls="clr-namespace:MyOnlineStore.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:homeviews="clr-namespace:MyOnlineStore.Views.Home"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:templates="clr-namespace:MyOnlineStore.Views.Templates"
+    xmlns:views="clr-namespace:MyOnlineStore.Views"
+    xmlns:admin="clr-namespace:MyOnlineStore.Views.Administrator"
+    Title="MyOnlineStore"
+    FlowDirection="LeftToRight"
+    FlyoutBehavior="Flyout"
+    Style="{StaticResource BaseStyle}"
+    Visual="Material"
+    mc:Ignorable="d">
+
+    <!--  Styles and Resources  -->
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource PrimaryNavyBlue}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource PrimaryMint}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource PrimaryMint}" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="Silver" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource PrimaryNavyBlue}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="Red" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource PrimaryMintLight}" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <!--  MAKE VISIBLE IF HAS ONE OR MORE STORE AT HIS NAME  -->
+    <Shell.FlyoutHeader>
+        <templates:FlyoutHeaderContentView HeaderContentView="{Binding HeaderContent}" />
+        <!--<StackLayout
+                Padding="5"
+                BackgroundColor="{StaticResource PrimaryNavyBlue}"
+                IsVisible="{Binding HasMoreThanOneStore}"
+                Visual="Material" >
+                <Image
+                    Aspect="AspectFill"
+                    Opacity="0.6"
+                    Source="placeholder_images.png" />
+                <pancakeview:PancakeView BackgroundColor="Red" CornerRadius="5">
+                    <controls:ImagePicker
+                        x:Name="currentStorePicker"
+                        Title="Current Store"
+                        Margin="0"
+                        BackgroundColor="{StaticResource WhiteBlue}"
+                        DropDownImage="dropdownarrow"
+                        ItemDisplayBinding="{Binding ., Converter={StaticResource StoresToStoreName}}"
+                        ItemsSource="{Binding MyStores}"
+                        PlaceHolderColor="Black"
+                        SelectedItem="{Binding CurrentStore}"
+                        TextColor="Black">
+
+
+        -->
+        <!--<controls:ImagePicker.Behaviors>
+                            <behaviors:EventToCommandBehavior
+                                Command="{Binding SelectedStoreCommand}"
+                                CommandParameter="{Binding Source={x:Reference currentStorePicker}, Path=SelectedItem}"
+                                EventName="SelectedIndexChanged" />
+                        </controls:ImagePicker.Behaviors>-->
+        <!--
+
+                    </controls:ImagePicker>
+                </pancakeview:PancakeView>
+            </StackLayout>-->
+    </Shell.FlyoutHeader>
+    <FlyoutItem
+        Title="My Account"
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="tab_feed.png">
+        <Tab
+            Title="My Stores"
+            Icon="tab_feed.png"
+            Route="Home">
+            <ShellContent Title="Page 1" ContentTemplate="{DataTemplate homeviews:HomePage}" />
+        </Tab>
+        <Tab Title="Explore Stores" Icon="tab_feed.png">
+            <ShellContent
+                Title="Page 3"
+                ContentTemplate="{DataTemplate homeviews:ExploreStores}"
+                Icon="paw.png" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Register a Store" FlyoutDisplayOptions="AsSingleItem">
+        <Tab>
+            <ShellContent Title="Create Store" ContentTemplate="{DataTemplate adminviews:RegisterStore}" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="About">
+        <Tab>
+            <ShellContent
+                Title="Cats"
+                ContentTemplate="{DataTemplate views:AboutPage}"
+                Icon="cat.png" />
+        </Tab>
+
+        <Tab>
+            <ShellContent
+                Title="Cats"
+                ContentTemplate="{DataTemplate views:AboutPage}"
+                Icon="cat.png" />
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Admin Home Page">
+        <Tab>
+            <ShellContent
+                Title="Cats"
+                ContentTemplate="{DataTemplate admin:AdminHomePage }"
+                Icon="cat.png" />
+        </Tab>
+
+        <Tab>
+            <ShellContent
+                Title="Cats"
+                ContentTemplate="{DataTemplate admin:AdminHomePage}"
+                Icon="cat.png" />
+        </Tab>
+    </FlyoutItem>
+</Shell>
+

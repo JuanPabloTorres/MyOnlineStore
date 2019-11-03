@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyOnlineStore.Views.LoginScenario.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:control="clr-namespace:MyOnlineStore.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rainbow="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
+    rainbow:DebugRainbow.IsDebug="False"
+    Visual="Material"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="SmallDatePicker"
+                BasedOn="{StaticResource DatePickerStyle}"
+                TargetType="control:ImageDatePicker">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryNavyBlue}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <RelativeLayout BackgroundColor="{StaticResource PrimaryMint}">
+
+                <!--  HEADER  -->
+                <AbsoluteLayout
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Height,
+                                                                           Factor=0.06}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=0.8}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=0.1}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Height,
+                                                                      Factor=0.02}">
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0.5,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="[App Name]"
+                            TextColor="{StaticResource PrimaryNavyBlue}"
+                            VerticalOptions="CenterAndExpand" />
+                    </pcv:PancakeView>
+                </AbsoluteLayout>
+
+
+                <!--  REGISTRATION ENTRY  -->
+                <AbsoluteLayout
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Height,
+                                                                           Factor=0.70}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=0.9}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=0.05}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Height,
+                                                                      Factor=0.12}">
+
+                    <!--  FULL NAME ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,0,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding FullName.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageEntry
+                                HeightRequest="40"
+                                Placeholder="Full Name"
+                                Style="{StaticResource EntryForm}"
+                                Text="{Binding FullName.Value, Mode=TwoWay}">
+                                <!--<control:ImageEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Email.IsValid}"
+                                        TargetType="control:ImageEntry"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageEntry.Triggers>-->
+                            </control:ImageEntry>
+                        </StackLayout>
+                    </pcv:PancakeView>
+
+                    <!--  EMAIL ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,0.2,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageEntry
+                                HeightRequest="40"
+                                Keyboard="Email"
+                                Placeholder="Email"
+                                Style="{StaticResource EntryForm}"
+                                Text="{Binding Email.Value, Mode=TwoWay}">
+                                <!--<control:ImageEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Email.IsValid}"
+                                        TargetType="control:ImageEntry"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageEntry.Triggers>-->
+                            </control:ImageEntry>
+                        </StackLayout>
+                    </pcv:PancakeView>
+
+                    <!--  BIRTHDATE ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,0.4,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding BirthDate.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageDatePicker
+                                Date="{Binding BirthDate.Value}"
+                                HeightRequest="40"
+                                Style="{StaticResource SmallDatePicker}">
+                                <control:ImageDatePicker.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding BirthDate.IsValid}"
+                                        TargetType="control:ImageDatePicker"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageDatePicker.Triggers>
+                            </control:ImageDatePicker>
+                        </StackLayout>
+                    </pcv:PancakeView>
+
+                    <!--  PHONE ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,0.6,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding PhoneNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageEntry
+                                Placeholder="Phone Number"
+                                Style="{StaticResource EntryForm}"
+                                Text="{Binding PhoneNumber.Value}">
+                                <control:ImageEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PhoneNumber.IsValid}"
+                                        TargetType="control:ImageEntry"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageEntry.Triggers>
+                            </control:ImageEntry>
+                        </StackLayout>
+                    </pcv:PancakeView>
+
+                    <!--  PASSWORD ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,0.8,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageEntry
+                                IsPassword="True"
+                                Placeholder="Password"
+                                Style="{StaticResource EntryForm}"
+                                Text="{Binding Password.Value}">
+                                <control:ImageEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Email.IsValid}"
+                                        TargetType="control:ImageEntry"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageEntry.Triggers>
+                            </control:ImageEntry>
+                        </StackLayout>
+                    </pcv:PancakeView>
+
+                    <!--  CONFIRM PASS ENTRY  -->
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0,1,1,0.20" AbsoluteLayout.LayoutFlags="All">
+                        <StackLayout Style="{StaticResource EntryValidationStack}">
+                            <Label
+                                IsVisible="True"
+                                Style="{StaticResource ValidationErrorLabelStyle}"
+                                Text="{Binding ConfirmPassword.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                            <control:ImageEntry
+                                IsPassword="True"
+                                Placeholder="Comfirm Password"
+                                Style="{StaticResource EntryForm}"
+                                Text="{Binding ConfirmPassword.Value}">
+                                <control:ImageEntry.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding ConfirmPassword.IsValid}"
+                                        TargetType="control:ImageEntry"
+                                        Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </control:ImageEntry.Triggers>
+                            </control:ImageEntry>
+                        </StackLayout>
+
+                    </pcv:PancakeView>
+                </AbsoluteLayout>
+
+
+                <!--  REGISTER BUTTON  -->
+
+                <AbsoluteLayout
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=0.1}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=0.8}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=0.1}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Height,
+                                                                      Factor=0.84}">
+                    <pcv:PancakeView
+                        AbsoluteLayout.LayoutBounds="0,1,1,1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundGradientAngle="0"
+                        BackgroundGradientEndColor="{StaticResource PrimaryNavyBlue}"
+                        BackgroundGradientStartColor="{StaticResource PrimaryNavyBlueLight}"
+                        CornerRadius="5"
+                        HasShadow="True">
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Register"
+                            TextColor="White"
+                            VerticalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </pcv:PancakeView>
+                </AbsoluteLayout>
+
+
+                <!--  LOGIN  -->
+
+                <AbsoluteLayout
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                          Property=Width,
+                                                                          Factor=1}"
+                    RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=0}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Height,
+                                                                      Factor=0.92}">
+                    <pcv:PancakeView AbsoluteLayout.LayoutBounds="0.5,0,0.5,1" AbsoluteLayout.LayoutFlags="All">
+                        <Label
+                            FontSize="Small"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Already Have An Account"
+                            TextColor="White"
+                            VerticalOptions="CenterAndExpand">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ToLoginCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </pcv:PancakeView>
+                </AbsoluteLayout>
+            </RelativeLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

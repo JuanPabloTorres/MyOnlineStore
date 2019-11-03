@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MyOnlineStore.Views.Templates.StoresCollectionView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rainbow="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
+    xmlns:templates="clr-namespace:MyOnlineStore.Views.Templates"
+    x:Name="this"
+    rainbow:DebugRainbow.IsDebug="False"
+    Visual="Default"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <RelativeLayout HeightRequest="300" WidthRequest="300">
+            <pcv:PancakeView
+                BackgroundColor="{StaticResource WhiteBlue}"
+                BorderThickness="1"
+                CornerRadius="5"
+                HasShadow="True"
+                HeightRequest="20"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=Height,
+                                                                       Factor=0.08}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=0.45}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Width,
+                                                                  Factor=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Height,
+                                                                  Factor=0}">
+                <Label
+                    Margin="5,0,0,0"
+                    FontAttributes="Bold"
+                    FontSize="{OnPlatform Android=Subtitle,
+                                          iOS=14}"
+                    HeightRequest="20"
+                    Text="{Binding Source={x:Reference this}, Path=SectionTitle}"
+                    TextType="Text"
+                    VerticalTextAlignment="Center"
+                    WidthRequest="50" />
+            </pcv:PancakeView>
+
+            <CollectionView
+                AbsoluteLayout.LayoutFlags="All"
+                HorizontalScrollBarVisibility="Always"
+                ItemsSource="{Binding Source={x:Reference this}, Path=StoreList}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=Height,
+                                                                       Factor=0.9}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Property=Width,
+                                                                      Factor=1}"
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Width,
+                                                                  Factor=0}"
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Property=Height,
+                                                                  Factor=0.1}"
+                SelectionMode="Single"
+                VerticalScrollBarVisibility="Never">
+                <CollectionView.Behaviors>
+                    <behaviors:EventToCommandBehavior Command="{Binding NavigateToStoreDetailCommand}" EventName="SelectionChanged" />
+                </CollectionView.Behaviors>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        ItemSpacing="5"
+                        Orientation="Horizontal"
+                        SnapPointsAlignment="Center"
+                        SnapPointsType="Mandatory" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:StoreCard />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RelativeLayout>
+    </ContentView.Content>
+</ContentView>

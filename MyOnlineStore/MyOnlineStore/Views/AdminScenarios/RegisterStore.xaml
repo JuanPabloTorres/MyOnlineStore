@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyOnlineStore.Views.AdminScenarios.RegisterStore"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:controls="clr-namespace:MyOnlineStore.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rainbow="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
+    rainbow:DebugRainbow.IsDebug="False"
+    BackgroundColor="{StaticResource PrimaryMint}"
+    Visual="Material"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                ApplyToDerivedTypes="True"
+                BasedOn="{StaticResource EntryForm}"
+                TargetType="controls:ImageEntry">
+                <Setter Property="PlaceholderColor" Value="White" />
+            </Style>
+            <Style
+                ApplyToDerivedTypes="True"
+                BasedOn="{StaticResource DatePickerStyle}"
+                CanCascade="True"
+                TargetType="DatePicker">
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Shell.TitleView>
+        <AbsoluteLayout>
+            <Label
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                FontAttributes="Bold"
+                FontSize="{OnPlatform Android=22,
+                                      iOS=22}"
+                HorizontalTextAlignment="Start"
+                Text="Register Store"
+                TextColor="{StaticResource WhiteBlue}"
+                VerticalTextAlignment="Center" />
+            <pcv:PancakeView AbsoluteLayout.LayoutBounds="1,0,0.4,0.95" AbsoluteLayout.LayoutFlags="All">
+                <lottie:AnimationView
+                    Animation="moreinfo.json"
+                    AutoPlay="True"
+                    HardwareAcceleration="True"
+                    Loop="False">
+                    <lottie:AnimationView.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding MoreInfoCommand}" EventName="OnClick" />
+                    </lottie:AnimationView.Behaviors>
+                </lottie:AnimationView>
+            </pcv:PancakeView>
+        </AbsoluteLayout>
+    </Shell.TitleView>
+    <ContentPage.Content>
+        <ScrollView
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Always">
+            <StackLayout Margin="10,10,10,10" VerticalOptions="FillAndExpand">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="10,0,10,0"
+                        Aspect="AspectFill"
+                        BackgroundColor="Silver"
+                        HeightRequest="150"
+                        Source="{Binding ProductImageSource, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                        WidthRequest="100" />
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        CornerRadius="10"
+                        Text="Add Photo">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding GetLogoPhotoCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        Text="Take Photo">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding TakeLogoPhotoCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                </Grid>
+
+                <RelativeLayout Margin="0,15,0,0">
+                    <pcv:PancakeView
+                        BackgroundColor="Silver"
+                        CornerRadius="10,0,0,10"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Property=Height,
+                                                                               Type=RelativeToView,
+                                                                               Factor=0.0}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Property=Width,
+                                                                              Type=RelativeToParent,
+                                                                              Factor=0.7}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Property=Width,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0.0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Property=Height,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0}"
+                        WidthRequest="20">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HeightRequest="30"
+                            HorizontalTextAlignment="Center"
+                            Text="Store General Info"
+                            VerticalTextAlignment="Center" />
+                    </pcv:PancakeView>
+                </RelativeLayout>
+
+                <!--  Owner Name  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding StoreOwnerName.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageEntry
+                        Placeholder="Store Owner Name"
+                        PlaceholderColor="White"
+                        Text="{Binding StoreOwnerName.Value}">
+                        <controls:ImageEntry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding StoreOwnerNameValidationCommand}" EventName="TextChanged" />
+                        </controls:ImageEntry.Behaviors>
+                    </controls:ImageEntry>
+                </StackLayout>
+
+                <!--  Store Name  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label
+                        IsVisible="True"
+                        Style="{StaticResource ValidationErrorLabelStyle}"
+                        Text="{Binding StoreName.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageEntry
+                        Placeholder="Official Store Name"
+                        PlaceholderColor="White"
+                        Text="{Binding StoreName.Value}">
+                        <controls:ImageEntry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidateStoreName}" EventName="TextChanged" />
+                        </controls:ImageEntry.Behaviors>
+                    </controls:ImageEntry>
+                </StackLayout>
+
+                <!--  Description  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label
+                        IsVisible="True"
+                        Style="{StaticResource ValidationErrorLabelStyle}"
+                        Text="{Binding Description.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageEntry Placeholder="Description" Text="{Binding Description.Value}">
+                        <controls:ImageEntry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding StoreOwnerNameValidationCommand}" EventName="TextChanged" />
+                        </controls:ImageEntry.Behaviors>
+                    </controls:ImageEntry>
+                </StackLayout>
+
+                <!--  Location  -->
+                <FlexLayout>
+                    <StackLayout FlexLayout.Grow="1" Style="{StaticResource EntryValidationStack}">
+                        <Label
+                            IsVisible="True"
+                            Style="{StaticResource ValidationErrorLabelStyle}"
+                            Text="{Binding Longitude.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                        <controls:ImageEntry
+                            Placeholder="Longitude"
+                            PlaceholderColor="White"
+                            Text="{Binding Longitude.Value}">
+                            <controls:ImageEntry.Behaviors>
+                                <behaviors:EventToCommandBehavior Command="{Binding ValidateStoreName}" EventName="TextChanged" />
+                            </controls:ImageEntry.Behaviors>
+                        </controls:ImageEntry>
+                    </StackLayout>
+                    <StackLayout FlexLayout.Grow="1" Style="{StaticResource EntryValidationStack}">
+                        <Label
+                            IsVisible="True"
+                            Style="{StaticResource ValidationErrorLabelStyle}"
+                            Text="{Binding Latitude.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                        <controls:ImageEntry
+                            Placeholder="Latitude"
+                            PlaceholderColor="White"
+                            Text="{Binding Latitude.Value}">
+                            <controls:ImageEntry.Behaviors>
+                                <behaviors:EventToCommandBehavior Command="{Binding ValidateStoreName}" EventName="TextChanged" />
+                            </controls:ImageEntry.Behaviors>
+                        </controls:ImageEntry>
+                    </StackLayout>
+                </FlexLayout>
+
+                <!--  Get Current Location  -->
+                <Button
+                    CornerRadius="10"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Get Current Location"
+                    VerticalOptions="Start">
+                    <Button.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding GetLocationCommand}" EventName="Clicked" />
+                    </Button.Behaviors>
+                </Button>
+
+                <!--  Account Label  -->
+                <RelativeLayout Margin="0,10,0,10">
+                    <pcv:PancakeView
+                        BackgroundColor="Silver"
+                        CornerRadius="10,0,0,10"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Property=Height,
+                                                                               Type=RelativeToView,
+                                                                               Factor=0.0}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Property=Width,
+                                                                              Type=RelativeToParent,
+                                                                              Factor=0.7}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Property=Width,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0.0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Property=Height,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0}"
+                        WidthRequest="20">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HeightRequest="30"
+                            HorizontalTextAlignment="Center"
+                            Text="Store Card Account"
+                            VerticalTextAlignment="Center" />
+                    </pcv:PancakeView>
+                </RelativeLayout>
+
+                <!--  Card Type  -->
+                <controls:ImagePicker
+                    Title="Card Type"
+                    DropDownImage="dropdownarrow"
+                    PlaceHolderColor="White"
+                    SelectedItem="{Binding TypeOfCard.Value, Mode=TwoWay}"
+                    Style="{StaticResource PickerStyle}">
+                    <controls:ImagePicker.Items>
+                        <x:String>Debit</x:String>
+                        <x:String>Credit</x:String>
+                    </controls:ImagePicker.Items>
+                </controls:ImagePicker>
+
+                <!--  Card Num  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label
+                        IsVisible="True"
+                        Style="{StaticResource ValidationErrorLabelStyle}"
+                        Text="{Binding CardNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageEntry Placeholder="Card Number" Text="{Binding CardNumber.Value}" />
+                </StackLayout>
+
+                <!--  Pin  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label
+                        IsVisible="True"
+                        Style="{StaticResource ValidationErrorLabelStyle}"
+                        Text="{Binding Pin.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageEntry Placeholder="Pin" Text="{Binding Pin.Value}" />
+                </StackLayout>
+
+                <!--  Expiration Date  -->
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label
+                        IsVisible="True"
+                        Style="{StaticResource ValidationErrorLabelStyle}"
+                        Text="{Binding ExpirationDate.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <controls:ImageDatePicker Date="{Binding ExpirationDate.Value}" />
+                </StackLayout>
+
+                <!--  Register Store  -->
+
+
+                <FlexLayout Margin="0,0,0,10">
+                    <Button
+                        Margin="0,0,5,0"
+                        CornerRadius="10"
+                        FlexLayout.Grow="1"
+                        Text="Register Store">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding RegisterStoreCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                    <Button
+                        Margin="5,0,0,0"
+                        CornerRadius="10"
+                        FlexLayout.Grow="1"
+                        Text="Add Products">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding NavigateToAddProductItemCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                </FlexLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

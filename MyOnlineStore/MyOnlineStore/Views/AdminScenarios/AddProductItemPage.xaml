@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyOnlineStore.Views.AdminScenarios.AddProductItemPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MyOnlineStore.Behaviors"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pcv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:rainbow="clr-namespace:Xamarin.Forms.DebugRainbows;assembly=Xamarin.Forms.DebugRainbows"
+    rainbow:DebugRainbow.IsDebug="False"
+    BackgroundColor="{StaticResource PrimaryMint}"
+    Routing.Route="AddProductItem"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource EntryStyle}" TargetType="Entry" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="10,10,10,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="10,0,10,0"
+                        Aspect="Fill"
+                        BackgroundColor="Silver"
+                        HeightRequest="150"
+                        Source="{Binding ProductImageSource, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                        WidthRequest="150" />
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        CornerRadius="10"
+                        Text="Add Photo">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding GetProductPhotoCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        Text="Take Photo">
+                        <Button.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding GetProductPhotoCommand}" EventName="Clicked" />
+                        </Button.Behaviors>
+                    </Button>
+                </Grid>
+
+                <RelativeLayout Margin="0,15,0,0">
+                    <pcv:PancakeView
+                        BackgroundColor="Silver"
+                        CornerRadius="10,0,0,10"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Property=Height,
+                                                                               Type=RelativeToView,
+                                                                               Factor=0}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Property=Width,
+                                                                              Type=RelativeToParent,
+                                                                              Factor=0.7}"
+                        RelativeLayout.XConstraint="{ConstraintExpression Property=Width,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0.0}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Property=Height,
+                                                                          Type=RelativeToParent,
+                                                                          Factor=0}"
+                        WidthRequest="20">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            HeightRequest="30"
+                            HorizontalTextAlignment="Center"
+                            Text="Product Item Information:"
+                            VerticalTextAlignment="Center" />
+                    </pcv:PancakeView>
+                </RelativeLayout>
+
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding ItemName.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <Entry Placeholder="Product Name" Text="{Binding ItemName.Value,Mode=TwoWay}">
+                        <Entry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidateItemNameCommand}" EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding Price.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <Entry Placeholder="Price" Text="{Binding Price.Value}">
+                        <Entry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidatePriceCommand}" EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding Description.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <Entry Placeholder="Description" Text="{Binding Description.Value}">
+                        <Entry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidateDescriptionCommand}" EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding Quantity.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <Entry Placeholder="Quantity" Text="{Binding Quantity.Value}">
+                        <Entry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidateQuantityCommand}" EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <StackLayout Style="{StaticResource EntryValidationStack}">
+                    <Label Text="{Binding TypeOfItem.Errors, Converter={StaticResource FirstValidationErrorConverter}}" />
+                    <Entry Placeholder="TypeOfItem" Text="{Binding TypeOfItem.Value}">
+                        <Entry.Behaviors>
+                            <behaviors:EventToCommandBehavior Command="{Binding ValidateTypeOfItemCommand}" EventName="TextChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+                <Button
+                    Margin="0,0,0,10"
+                    CornerRadius="10"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Add To Inventory"
+                    VerticalOptions="CenterAndExpand">
+                    <Button.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding AddToInventoryCommand}" EventName="Clicked"  />
+                    </Button.Behaviors>
+                </Button>
+                <Button
+                    Margin="0,0,0,10"
+                    CornerRadius="10"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Read Barcode"
+                    VerticalOptions="CenterAndExpand">
+                    <Button.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding ReadBarcodeCommand}" EventName="Clicked"  />
+                    </Button.Behaviors>
+                </Button>
+
+              
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
